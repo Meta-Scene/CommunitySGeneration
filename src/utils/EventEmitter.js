@@ -1,15 +1,21 @@
-<!-- EventEmitter.vue -->
-<template>
-  <div style="display: none;"></div>
-</template>
+// utils/eventEmitter.js
+import { reactive } from 'vue';
 
-<script setup>
-import { ref, reactive, onMounted, onUnmounted, provide, inject } from 'vue';
 /**
- * 监听器实例 reactive{} 类
+ * 事件发射器工具函数 - 实现发布-订阅模式
+ * @module eventEmitter
+ */
+
+/**
+ * 监听器存储对象
+ * @type {Object.<string, Function[]>}
  */
 const listeners = reactive({});
 
+/**
+ * 事件发射器实例
+ * @type {Object}
+ */
 const eventEmitter = {
   /**
    * 订阅事件
@@ -105,17 +111,30 @@ const eventEmitter = {
   }
 };
 
+/**
+ * 初始化事件发射器（可选，用于生命周期管理）
+ * @param {Object} [options] - 初始化选项
+ * @param {Function} [options.onMount] - 挂载时的回调
+ * @param {Function} [options.onUnmount] - 卸载时的回调
+ */
+const initEventEmitter = (options = {}) => {
+  if (options.onMount) {
+    options.onMount();
+    console.log('事件发射器已初始化');
+  }
+  
+  return {
+    destroy() {
+      eventEmitter.clearAll();
+      if (options.onUnmount) {
+        options.onUnmount();
+      }
+      console.log('事件发射器已销毁，所有事件监听器已清除');
+    }
+  };
+};
 
-provide('eventEmitter', eventEmitter);
-
-onMounted(() => {
-  console.log('EventEmitter 组件已挂载');
-});
-
-onUnmounted(() => {
-  eventEmitter.clearAll();
-  console.log('EventEmitter 组件已卸载，所有事件监听器已清除');
-});
-
-export const useEventEmitter = () => inject('eventEmitter');
-</script>
+export {
+  eventEmitter,
+  initEventEmitter
+};

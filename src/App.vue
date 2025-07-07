@@ -5,7 +5,7 @@ import { TOKEN } from './stores/token.js'
 import RMCopyright from './components/RMCopyright.vue'
 import Load3DT from './components/Load3DT.vue'
 import AboutPOP from './components/AboutPOP.vue'
-
+import MessageHandler from './utils/MessageHandler.vue'
 const viewerReady = ref(false);
 let viewer;
 onMounted(async () => {
@@ -42,6 +42,7 @@ onMounted(async () => {
    <RMCopyright v-if="viewerReady" />
    <Load3DT v-if="viewerReady" />
    <AboutPOP v-if="viewerReady" />
+   <MessageHandler v-if="viewerReady" />
   <!-- <Proto v-if="viewerReady" />
   <Flyer v-if="viewerReady" />
   <Connector v-if="viewerReady" /> -->
