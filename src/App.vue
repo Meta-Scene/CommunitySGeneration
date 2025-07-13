@@ -45,7 +45,7 @@ onMounted(async () => {
    <Load3DT v-if="viewerReady" />
    <MessageHandler v-if="viewerReady" />
    <AboutCamera v-if="viewerReady" />
-
+   <AboutPOP v-if="viewerReady" />
 </template>
 
 <style scoped>

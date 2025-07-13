@@ -153,10 +153,13 @@ function startRotation(payload) {}
 function stopRotation() {}
 function setLookDistance(payload) {}
 function createPop(payload) {
+  console.log("Hasinpop1")
   eventEmitter.publish('createPop', payload);
 }
 function addYuJing(payload) {}
-function clearPopByType(payload) {}
+function clearPopByType(payload) {
+  eventEmitter.publish('clearPopByType', payload);
+}
 function clearYuJing(payload) {}
 function clearBorderLine(geojsonPath) {}
 function resetAll() {
