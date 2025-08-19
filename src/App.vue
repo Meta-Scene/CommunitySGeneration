@@ -7,6 +7,7 @@ import Load3DT from './components/Load3DT.vue'
 import MessageHandler from './components/MessageHandler.vue'
 import AboutCamera from './components/AboutCamera.vue'
 import AboutPOP from './components/AboutPOP.vue'
+import LoadGlb from './components/LoadGlb.vue'
 
 const viewerReady = ref(false);
 let viewer;
@@ -42,10 +43,7 @@ onMounted(async () => {
     <div id="cesiumContainer"></div>
   </div>
    <RMCopyright v-if="viewerReady" />
-   <Load3DT v-if="viewerReady" />
-   <MessageHandler v-if="viewerReady" />
-   <AboutCamera v-if="viewerReady" />
-   <AboutPOP v-if="viewerReady" />
+    <LoadGlb v-if="viewerReady" />
 </template>
 
 <style scoped>

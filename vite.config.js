@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import cesium from 'vite-plugin-cesium'
 
 export default defineConfig({
-  base: '/HuaFa/', // 设置你的publicPath
+  base: '/', // 设置你的publicPath
   plugins: [vue(), cesium()],
   build: {
     rollupOptions: {
