@@ -10,7 +10,7 @@ GLB/
 tests/**/coverage/
 tests/e2e/reports
 selenium-debug.log
-
+tiles/
 # Editor directories and files
 .idea
 .vscode

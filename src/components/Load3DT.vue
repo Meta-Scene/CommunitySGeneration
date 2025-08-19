@@ -62,7 +62,7 @@ onMounted(() => {
           cartographic.latitude,
           surfaceHeight + heightOffset
         );
-
+        console.log("模型位置:", position);
         // 计算并设置模型的变换矩阵
         const translation = Cesium.Cartesian3.subtract(position, boundingSphere.center, new Cesium.Cartesian3());
         tileset.modelMatrix = Cesium.Matrix4.fromTranslation(translation);

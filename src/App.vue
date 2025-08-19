@@ -43,7 +43,8 @@ onMounted(async () => {
     <div id="cesiumContainer"></div>
   </div>
    <RMCopyright v-if="viewerReady" />
-    <LoadGlb v-if="viewerReady" />
+   <Load3DT v-if="viewerReady" />
+  <LoadGlb v-if="viewerReady" /> 
 </template>
 
 <style scoped>
