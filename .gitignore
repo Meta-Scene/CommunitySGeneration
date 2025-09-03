@@ -6,11 +6,13 @@ yarn-debug.log*
 yarn-error.log*
 **/*.log
 public/tiles
+public/GLB
 GLB/
 tests/**/coverage/
 tests/e2e/reports
 selenium-debug.log
 tiles/
+public/tiles/
 # Editor directories and files
 .idea
 .vscode

@@ -7,7 +7,6 @@ import Load3DT from './components/Load3DT.vue'
 import MessageHandler from './components/MessageHandler.vue'
 import AboutCamera from './components/AboutCamera.vue'
 import AboutPOP from './components/AboutPOP.vue'
-import LoadGlb from './components/LoadGlb.vue'
 
 const viewerReady = ref(false);
 let viewer;
@@ -33,6 +32,13 @@ onMounted(async () => {
     infoBox: true,
   })
 
+  // 限制滚轮缩放的范围（最小/最大可视距离，按需调整数值）
+  const ssc = viewer.scene.screenSpaceCameraController
+  ssc.minimumZoomDistance = 100.0
+  // ssc.maximumZoomDistance = 5000.0
+  // 可选：减小滚轮缩放的惯性，感觉更“稳”
+  // ssc.inertiaZoom = 0.2
+
   provide('viewer', viewer);
   viewerReady.value = true;
 })
@@ -44,7 +50,6 @@ onMounted(async () => {
   </div>
    <RMCopyright v-if="viewerReady" />
    <Load3DT v-if="viewerReady" />
-  <LoadGlb v-if="viewerReady" /> 
 </template>
 
 <style scoped>

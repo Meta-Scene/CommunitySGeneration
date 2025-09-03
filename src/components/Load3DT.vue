@@ -6,7 +6,7 @@ const viewer = inject('viewer');
 const tilesetRef = ref(null);
 
 onMounted(() => {
-  let heightOffset = 45.0; // 设置模型高度偏移
+  let heightOffset = 10.0; // 设置模型高度偏移
   
   // 3D Tileset配置选项
   const tilesetOptions = {
