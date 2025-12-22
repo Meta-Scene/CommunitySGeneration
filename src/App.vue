@@ -7,6 +7,9 @@ import Load3DT from './components/Load3DT.vue'
 import MessageHandler from './components/MessageHandler.vue'
 import AboutCamera from './components/AboutCamera.vue'
 import AboutPOP from './components/AboutPOP.vue'
+import RegionDivisionLayer from './components/RegionDivisionLayer.vue'
+
+
 
 const viewerReady = ref(false);
 let viewer;
@@ -50,6 +53,8 @@ onMounted(async () => {
   </div>
    <RMCopyright v-if="viewerReady" />
    <Load3DT v-if="viewerReady" />
+   <MessageHandler v-if="viewerReady" />
+   <RegionDivisionLayer v-if="viewerReady" />
 </template>
 
 <style scoped>
