@@ -9,31 +9,33 @@ import AboutCamera from './components/AboutCamera.vue'
 import AboutPOP from './components/AboutPOP.vue'
 import RegionDivisionLayer from './components/RegionDivisionLayer.vue'
 
+const viewerReady = ref(false)
+let viewer
 
-
-const viewerReady = ref(false);
-let viewer;
 onMounted(async () => {
-  // 使用Cesium的Ion服务进行认证
-  Cesium.Ion.defaultAccessToken = TOKEN;
+  // on服务进行认证
+  Cesium.Ion.defaultAccessToken = TOKEN
 
   // 创建一个Viewer实例
   viewer = new Cesium.Viewer('cesiumContainer', {
     // 使用全球地形数据，启用水面反射和水下地形渲染
-  terrainProvider: Cesium.createWorldTerrain({ requestWaterMask: true }),
-  animation: false,            // 隐藏动画控制器
-  baseLayerPicker: false,      // 隐藏底图选择器
-  fullscreenButton: false,     // 隐藏全屏按钮
-  geocoder: false,             // 隐藏地理编码器
-  homeButton: false,           // 隐藏主页按钮
-  infoBox: false,              // 隐藏信息框
-  sceneModePicker: false,      // 隐藏场景模式选择器
-  selectionIndicator: false,   // 隐藏选择指示器
-  timeline: false,             // 隐藏时间轴
-  navigationHelpButton: false, // 隐藏导航帮助按钮
-  terrainExaggeration: 1.0,    // 地形夸张比例
+    terrainProvider: Cesium.createWorldTerrain({ requestWaterMask: true }),
+    animation: false,            // 隐藏动画控制器
+    baseLayerPicker: false,      // 隐藏底图选择器
+    fullscreenButton: false,     // 隐藏全屏按钮
+    geocoder: false,             // 隐藏地理编码器
+    homeButton: false,           // 隐藏主页按钮
+    infoBox: false,              // 隐藏信息框
+    sceneModePicker: false,      // 隐藏场景模式选择器
+    selectionIndicator: false,   // 隐藏选择指示器
+    timeline: false,             // 隐藏时间轴
+    navigationHelpButton: false, // 隐藏导航帮助按钮
+    terrainExaggeration: 1.0,    // 地形夸张比例
     infoBox: true,
   })
+
+  // A：让 F12 Console 永远能拿到 viewer（仅用于调试）
+  window.__CESIUM_VIEWER__ = viewer
 
   // 限制滚轮缩放的范围（最小/最大可视距离，按需调整数值）
   const ssc = viewer.scene.screenSpaceCameraController
@@ -42,8 +44,8 @@ onMounted(async () => {
   // 可选：减小滚轮缩放的惯性，感觉更“稳”
   // ssc.inertiaZoom = 0.2
 
-  provide('viewer', viewer);
-  viewerReady.value = true;
+  provide('viewer', viewer)
+  viewerReady.value = true
 })
 </script>
 
@@ -51,10 +53,10 @@ onMounted(async () => {
   <div id="app">
     <div id="cesiumContainer"></div>
   </div>
-   <RMCopyright v-if="viewerReady" />
-   <Load3DT v-if="viewerReady" />
-   <MessageHandler v-if="viewerReady" />
-   <RegionDivisionLayer v-if="viewerReady" />
+  <RMCopyright v-if="viewerReady" />
+  <Load3DT v-if="viewerReady" />
+  <MessageHandler v-if="viewerReady" />
+  <RegionDivisionLayer v-if="viewerReady" />
 </template>
 
 <style scoped>
