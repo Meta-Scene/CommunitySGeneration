@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cesium 3DTiles 示例</title>
+  <!-- CesiumJS CDN -->
+  <script src="https://cesium.com/downloads/cesiumjs/releases/1.114/Build/Cesium/Cesium.js"></script>
+  <link href="https://cesium.com/downloads/cesiumjs/releases/1.114/Build/Cesium/Widgets/widgets.css" rel="stylesheet" />
+  <style>
+    html, body, #cesiumContainer {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <div id="cesiumContainer"></div>
+
+  <script>
+    // ---------------- 这里填你的 token ----------------
+    Cesium.Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwNDgxMDhhNS1hN2VhLTRkMWItOWYzZS1mOGI0Yjg2ZTE3MDQiLCJpZCI6ODkxNzYsImlhdCI6MTY0OTY1OTEwNX0.q313rIpV_E1OtO1ftJtSGkRknti6QhJVETDZd_mGVIQ";
+
+    // 创建地球（带默认影像+地形）
+    const viewer = new Cesium.Viewer("cesiumContainer", {
+      terrain: Cesium.Terrain.fromWorldTerrain() // 加载全球地形
+    });
+
+    (async function () {
+      try {
+        // ---------------- 这里填你的 assetId ----------------
+        const tileset = await Cesium.Cesium3DTileset.fromIonAssetId(4923490, {
+          // 把模型放在 经度0, 纬度0，高度0
+          modelMatrix: Cesium.Transforms.eastNorthUpToFixedFrame(
+            Cesium.Cartesian3.fromDegrees(0, 0, 0)
+          )
+        });
+
+        viewer.scene.primitives.add(tileset);
+
+        // 自动缩放到模型
+        await viewer.zoomTo(tileset);
+
+        // 应用 ion 上设置的默认样式（如果有）
+        const extras = tileset.asset.extras;
+        if (
+          Cesium.defined(extras) &&
+          Cesium.defined(extras.ion) &&
+          Cesium.defined(extras.ion.defaultStyle)
+        ) {
+          tileset.style = new Cesium.Cesium3DTileStyle(extras.ion.defaultStyle);
+        }
+
+        console.log("3DTiles 加载成功");
+      } catch (e) {
+        console.error("加载失败：", e);
+      }
+    })();
+  </script>
+</body>
+</html>
